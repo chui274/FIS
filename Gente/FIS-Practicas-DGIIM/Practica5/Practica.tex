@@ -1,0 +1,1248 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{multirow, array}
+\usepackage[spanish,activeacute]{babel}
+
+
+\title{Práctica 3b: Gestión de una Web de cine}
+\author{Rafael Nogales Vaquero
+\\Lothar Soto Palma
+\\Elena Toro Pérez
+\\Jose Ramón Trillo Vilchez}
+\date{\today}
+
+\begin{document}
+\maketitle
+\section{Contratos. Elena Toro Pérez}
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{3}{p{8cm}|}{\textbf{altaRegistro(correo, clave)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{8cm}|}{Da de alta a un usuario en la base de datos. El usuario inicia sesión, mediante su correo y la clave, como Usuario Registrado.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{8cm}|}{:DeCine} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{8cm}|}{- Si el correo propuesto ya está registrado.
+
+- Si la clave no cumple los requisitos de seguridad.
+
+- Si el nombre de Usuario Registrado ya existe.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{8cm}|}{No existe otro objeto Usuario Registrado con el mismo nombre de usuario y/o correo.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{8cm}|}{- Fue creado un objeto de la clase Usuario Registrado, que se identifica con NombreUsuario.} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{3}{p{8cm}|}{\textbf{identificarse(correo, clave)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{8cm}|}{Identifica si una persona es un Usuario Registrado en el sistema a través de su correo y la clave.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{8cm}|}{:DeCine} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{8cm}|}{- Si el correo no está registrado.
+
+- Si la clave no concuerda con el correo.
+} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{8cm}|}{Debe existir el correo y la clave.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{8cm}|}{- Fue creada una conexión del Usuario Registrado, identificado con el correo y su clave.
+
+- Fueron permitidos los privilegios que el Sistema tiene para los Usuarios Registrados en esa conexión.
+} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{3}{p{8cm}|}{\textbf{bajaRegistro(idUsuario)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{8cm}|}{Da de baja al Usuario Registrado para pasar a ser un usuario normal. Cierra sesión como Usuario Registrado mediante su correo y la clave.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{8cm}|}{:DeCine} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{8cm}|}{- Si el usuario identificado por idUsuario no existe.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{8cm}|}{Debe existir el usuario que se va a dar de baja en la base de datos.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{8cm}|}{- Fue eliminado un objeto de la clase Usuario Registrado.} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{3}{p{8cm}|}{\textbf{infoUsuario = consultarUsuario(idUsuario)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{8cm}|}{Muestra la información determinada sobre el usuario indicado mediante idUsuario.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{8cm}|}{:DeCine} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{8cm}|}{-	Si el usuario identificado por idUsuario no existe.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{8cm}|}{Se almacenará en la variable infoUsuario la información acerca del usuario idUsuario.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{8cm}|}{- Debe existir el usuario identificado por idUsuario que se va a consultar.
+
+- Se deben tener permisos para mostrar la información sobre un usuario, ya que este método lo usa el administrador del sistema.
+} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{8cm}|}{-Fue creada la variable infoUsuario y se almacena aquí la información del usuario elegido.} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{3}{p{8cm}|}{\textbf{bajaUsuario(idUsuario)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{8cm}|}{Da de baja a un usuario en la base de datos mediante su idUsuario} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{8cm}|}{:DeCine} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{8cm}|}{-	Si el usuario identificado por idUsuario no existe.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{8cm}|}{Debe existir el usuario que se va a borrar en la base de datos.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{8cm}|}{- Fue eliminado el objeto que corresponde con el idUsuario del sistema.
+
+- Fueron eliminados todos los enlaces que tiene este usuario con el resto de objetos.
+} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{3}{p{8cm}|}{\textbf{cambiarAVIP(idUsuario)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{8cm}|}{Cambia al usuario identificado por idUsuario de ser un usuarioRegistrado a ser un usuarioVIP. Le da a dicho usuario los permisos correspondientes que tienen los VIP, como la posibilidad de criticar una película.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{8cm}|}{:DeCine} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{8cm}|}{- Si el usuario identificado por idUsuario no existe.
+
+- Si el usuario identificado por idUsuario ya es VIP.
+} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{8cm}|}{Debe existir el usuario que se ha elegido para ser VIP.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{8cm}|}{- Fue creado un objeto de la clase UsuarioVIP.} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{3}{p{8cm}|}{\textbf{nuevaPelícula(infoPelícula)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{8cm}|}{Crea una nueva Película en el sistema, inicializando su estado y asignando los atributos más importantes.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{8cm}|}{:DeCine} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{8cm}|}{- Si la información de la Película existe ya en el sistema.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{8cm}|}{No existe otro objeto Película con el contenido de los atributos exactamente igual.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{8cm}|}{- Fue creado un objeto de la clase Película (identificado por nombre, año y reparto).} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{3}{p{8cm}|}{\textbf{nuevoDirectorPelícula(idPelícula, idDirector)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{8cm}|}{Asigna un nuevo director a una Película en el sistema.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{8cm}|}{:DeCine} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{8cm}|}{- Si la película identificada por idPelícula no existe.
+- Si el director identificado por idDirector no existe.
+} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{8cm}|}{No existe otro objeto Director con el mismo nombre de la misma Película.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{8cm}|}{- Fue creado un objeto Director de la clase Película (identificado por nombre del director ligado a película).} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{3}{p{8cm}|}{\textbf{nuevoActorPelícula(idPelícula, idActor)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{8cm}|}{Asigna un nuevo actor a una Película en el sistema.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{8cm}|}{:DeCine} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{8cm}|}{-	Si la película identificada por idPelícula no existe.
+-	Si el actor identificado por idActor no existe.
+} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{8cm}|}{No existe otro objeto actor con el mismo nombre de la misma película.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{8cm}|}{- Fue creado un objeto Actor de la clase Película (identificado por nombre del actor ligado a película).} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{3}{p{8cm}|}{\textbf{nuevoGéneroPelícula(idPelícula, idGénero)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{8cm}|}{Asigna un nuevo género a una Película en el sistema.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{8cm}|}{:DeCine} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{8cm}|}{- Si la película identificada por idPelícula no existe.
+- Si el género identificado por idGénero no existe.
+} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{8cm}|}{No existe otro objeto género con el mismo nombre de la misma película.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{8cm}|}{Fue creado un objeto género de la clase Película (identificado por nombre del género ligado a película).} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{3}{p{8cm}|}{\textbf{infoPelícula = consultarPelícula(idPelícula)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{8cm}|}{Muestra la información de la película identificada por idPelícula.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{8cm}|}{:DeCine} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{8cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{8cm}|}{-	Si la película identificada por idPelícula no existe.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{8cm}|}{Se almacenará en la variable infoPelícula la información acerca de la película idPelícula.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{8cm}|}{Debe existir la película identificada por idPelícula.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{8cm}|}{- Fue creada la variable infoPelícula y se almacena aquí la información de la película elegida.} \\
+\hline
+\end{tabular}
+\end{table}
+\clearpage
+\section{Contratos. Rafael Nogales Vaquero}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{nuevoTrailer(idPelícula, video, enlaceAVideo, comentario)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Añadir los trailers de las películas.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{Sistema(DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item No existe la película en el sistema.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{El sistema debe tener la película.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{Se añade el trailer a la película \textit{idPelícula}} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{nuevoPremio(idPelícula, idPremio)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Añadir los premios de las peliculas.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{Sistema(DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item No existe la película en el sistema.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{El sistema debe tener la película.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{Se añade el premio a la película \textit{idPelícula}} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{nuevoEstreno(idPelícula, infoEstreno)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Establecer la fecha de estreno de las películas. Y la lista de cines donde se va a proyectar.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{Sistema(DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item No existe la película en el sistema.
+\item La pelicula ya se ha estrenado.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{El sistema debe tener la película.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{Se añade la fecha de estreno a la película \textit{idPelícula}} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{nuevaDistribución(idPelícula, soporte, fecha, calidad, descripción, tipo, precio, web)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Añadir los soportes en los que la película va a distribuirse (VHS, DVD, BD...) así como los detalles de cada soporte} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{Sistema(DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item No existe la película en el sistema.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{El sistema debe tener la película.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{Se añade el soporte con todos sus detalles a la película \textit{idPelícula}} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{aceptarAlta(idPelícula)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Añadir una película sugerida por un usuario VIP} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{Sistema(DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Ya existe la película en el sistema.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{El sistema no puede tener la película.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{Se añade la película \textit{idPelícula}} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{nuevoCine(nombre, ciudad, provincia)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Añadir un cine al sistema} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{Sistema(DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Ya existe un cine en la misma Ciudad con el mismo nombre.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{El sistema no puede tener un cine con el mismo nombre en la misma ciudad.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{Se añade un cine a la lista de cines} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{nuevaSala(idCine, número, nombre)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Añadir una sala a un cine del sistema} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{Sistema(DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{Lo ideal es que en cada cine no haya dos salas con el mismo número (ni que se repitan los nombres) de forma que se pueda usar el número de sala como clave primaria de la BD en el caso de que se requiera de una BD.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Ya existe una sala en ese cine con el con el mismo numero. \textit{(Ver notas)}
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{El cine no puede tener una sala con el mismo número.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{Se añade una sala a un cine.} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{bajaCine(idCine)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Borrar un cine del sistema} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{Sistema(DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item No existe ese cine.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{El cine tiene que existir.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{Se elimina un cine del sistema.} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{nuevaSesión(idpelícula, idCine, idSala, díaSemana, hora}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Establecer una nueva sesión para una película en un cine} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{Sistema(DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item No existe ese cine.
+\item No existe esa película.
+\item Ya hay otra película en esa misma sala en ese mismo momento (o al menos se solapan horarios).
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{El cine y la película tienen que existir, además los horarios de esta sesión no pueden solaparse con las de otras películas que se proyecten en la misma sala.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{Se establece una sesion de una película en un cine.} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{bajaSesión(idSesión)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Borrar una sesion de una pelicula en un cine.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{Sistema(DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item No existe esa sesion.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{La sesión tiene que existir.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{Se elimina la sesión del sistema.} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{infoSesiones = consultaProgramación(idPelícula, criteriosConsulta)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Buscar en que cines que cumplen los \textit{criteriosConsulta} se proyecta la película \textit{idPelícula}.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{Sistema(DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item No existe esa película.
+\item No hay programada una fecha de estreno para dicha película.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{Devuelve la información de las sesiones que verifican la query.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{La película tiene que existir.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{resultadoBúsqueda = búsquedaPelícula(criterioBúsqueda)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Permite a los usuarios buscar películas que cumplen los \textit{criteriosBúsqueda}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{Sistema(DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{Devuelve una lista de películas que verifican la query.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+
+\clearpage
+\pagebreak
+\section{Contratos. Jose Ramón Trillo Vilchez}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{IntroducirPerfil( idUsuarioR,infoPerfil)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Introduces tu idUsuarioR y tu infoPerfil para acceder a tu zona web.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item No existe el idUsuario o infoPerfil
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{true si existe el usuario y false si no existe} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{el nick y la infoPerfil debe coincidir con alguno de la base de datos de la página web} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{infoPerfil=ConsultaPerfil( idUsiaro)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Consulta la información de un usuario registrado.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item No existe idUsuario
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{La salida muestra la información del usuario registrado.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{MarcarPeliculaFavorita(idUsuario,idPelicula)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{marcar y añadir un enlace a la lista de listaFavoritas .} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item La pelicula ya fue marcada
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{se creo un enlace dentro de lista de listaFavoritas que lleva a la pelÌcula marcada} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{aceptarAlmasGemlas(idUsuarioR, idPrpuestaGemela)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Aceptar al usuarios registrado (idPrpuestaGemela) que tengas las gustos parecidos .} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Esa alma gemela ya fue aceptada
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{se creo un  dentro de lista de ListaAlmasGemelas que lleva a la información de ese usuario} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{nuevaLista(idUsuarioR, Nombrelista)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Crear una lista para un usuario.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Ese nombre de la lista ya existe 
+\item Ese nombre del usuario no es correcto
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{Se creo una lista para el usuario registrado} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{bajaLista( idUsuario,  idlista)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Se elimina una lista para del usuario.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item La lista no existe
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{Se destruye una lista del usuario registrado} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{infoListaPeliculas=consultaLista( idLista)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Consulta una de las listas de pelÌculas.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item El usuario no tiene una lista con ese ID
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{La salida muestra la lista de pelÌculas que tiene esa ID.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{nuevaPelículaEnLista(idLista, idPelícula)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Añadir en una determinada lista un enlace con la pelicula.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item La pelicula ya se añadió
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{Se crea un enlace en lista determida de la película} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{bajaPelículaEnLista(idLista, idPelícula)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Elimina en una determinada lista un enlace con la película.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item La película ya se elimino
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{Se destruye un enlace en lista determida de la pelicula} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{nuevaPropuestaAlmaGemela(idUsuarioR, IdURAgemela )}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Se pide al sistema que haga una propuesta de almas gemelas} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item el idUsuario es incorrecto.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{La salida muestra una lista de almas gemelas.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{Sirve para todas las posibles almas.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{ListaPosiblesGemelas = busquedaAlmas(idUsuarioR)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Encuentra posibles almas gemelas para un usuario.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item El ID de usuario es incorrecto 
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{La salida muestra posibles almas gemelas para un usuario registrado.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{Para todos los usuarios} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\end{tabular}
+\end{table}
+
+\clearpage
+\pagebreak
+\section{Contratos. Lothar Soto Palma}
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{resultadoConsulta=consultaCartelera(criterioConsulta)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Consulta la cartelera de un determinado cine haciendo uso de ciertos criterios.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{Sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item No existe una cartelera en el sistema.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{La salida debe contener una lista de películas que coincidan con los criterios de consulta dados como parametro.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{El sistema debe albergar al menos una cartelera para su consulta.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{puntuarPelícula(idUsuarioR, idPelícula, puntos)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Que el usuario de una valoración a una determinada película del sistema.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item No existe un usuario en el sistema.
+\item No existe una película en el sistema.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Se modifica la instancia de la película existente, se le añade el valor de puntos y se realiza una media.
+\end{itemize}} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{propuestaNuevaPelícula(idUsuarioVIP, infoPelícula)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Un usuario VIP añade una proposición de película a la lista de proposiciones del sistema para posteriormente ser evaluada por el administrador y añadida o no.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{El sistema debe albergar una lista de películas propuestas a la que solo puede acceder un administrador.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Se crea una instancia de Película.
+\item Se modifica dicha instancia con infoPelícula.
+\item Se include dicha instancia en lista de propuestos.
+\end{itemize}} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{críticaPelícula(idUsuarioVIP, idPelícula, infoCrítica)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Un usuario VIP añade una crítica a una película determinada del sistema.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Si no existe usuario VIP.
+\item Si no existe Película.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Se crea una instancia (cri) de crítica.
+\item Se modifica dicha instancia con la información infoCrítica.
+\item Se crea un enlace entre cri y el usuario VIP identificada por idUsuarioVIP.
+\item Se crea un enlace entre cri y la Película identificada por idPelícula.
+\end{itemize}} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{3}{p{10cm}|}{\textbf{nuevaComunidad(idURPropietario, nombreComunidad)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Un usuario crea una nueva comunidad.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Si no existe el usuario.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Se crea una nueva instancia de Comunidad (co).
+\item Se modifica co.nombre a nombreComunidad.
+\item Se crea un enlace entre co y el usuario identificado por idURPropietario.
+\end{itemize}}\\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{pedirEntradaComunidad(idComunidad, idURSolicitante)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Un usuario realiza una petición para ser admitido en una comunidad determinada.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Si la comunidad no existe.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{Supongamos que cada Comunidad tiene una lista de peticiones.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Se crea una nueva instancia de petición (p).
+\item Se crea un enlace entre la p y la Comunidad identificada por idComunidad.
+\end{itemize}} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{admitirEnComunidad(idComunidad, idURAdmitido)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Aceptar una petición realizada con anterioridad.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Si no existe el usuario a admitir.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{Es necesario la existencia de la petición en el sistema.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Se crea un enlacen entre el usuario identificado por idURAdmitido y Comunidad identificada por idComunidad.
+\end{itemize}} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{listaMiembros = verListaMiembros(idComunidad)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Permite  obtener una lista de miembros de una comunidad determinada en el sistema.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Si la comunidad no existe.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{Lista de usuarios pertenecientes a la Comunidad.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{listaMiembrosPendientes = verListaSolicitudesPendientes(idComunidad)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Permite obtener una lista de miembros que aún no han sido admitidos en la comunidad.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Si la comunidad no existe.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{Lista de usuarios que están pendientes de ser aceptados o no en la comunidad.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{listaPelículasCriticadas = listarPelículas(idComunidad)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Permite obetener una lista de las películas que los usuarios de la comunidad han criticado.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Si la comunidad no existe.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{Lista de películas criticadas por los usuarios de la comunidad.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|p{3cm}|}{Nombre} & \multicolumn{4}{p{10cm}|}{\textbf{listaPelículasIncluidas = listarPelículasIncluidas(idComunidad)}}\\
+\hline
+\multicolumn{2}{|p{3cm}|}{Responsabilidad} & \multicolumn{4}{p{10cm}|}{Permite obtener una lista de películas que han sido incluidas en el sistema por miembros de la comunidad.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Tipo} & \multicolumn{4}{p{10cm}|}{sistema(:DeCine)} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Referencias Cruzadas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Notas} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Excepciones} & \multicolumn{4}{p{10cm}|}{\begin{itemize}
+\item Si la comunidad no existe.
+\end{itemize}} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Salida} & \multicolumn{4}{p{10cm}|}{Lista de Películas incluidas en el sistema por los miembros de la comunidad.} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Precondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\multicolumn{2}{|p{3cm}|}{Poscondiciones} & \multicolumn{4}{p{10cm}|}{} \\
+\hline
+\end{tabular}
+\end{table}
+	
+\end{document}

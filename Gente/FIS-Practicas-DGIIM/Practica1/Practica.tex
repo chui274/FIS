@@ -1,0 +1,339 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{multirow, array}
+
+
+\title{Práctica 1: Gestión de una Web de cine}
+\author{Rafael Nogales Vaquero
+\\Lothar Soto Palma
+\\Elena Toro Pérez
+\\Jose Ramón Trillo Vilchez}
+\date{15 Octubre del 2014}
+
+\begin{document}
+
+\maketitle
+
+\section{Objetivos}
+Este proyecto tiene como principal objetivo desarrollar un entorno web para gente con gran interés en el mundo del cine.
+Estos aficionados podrán consultar on-line, en todo momento, las puntuaciones sobre cualquier película, información
+detallada sobre estrenos y la posibilidad de comprar cualquier DVD que esté en el mercado.
+También podrán saber las puntuaciones que sus amigos o conocidos les han dado a ciertas películas, podrán acceder a
+recomendaciones por parte del conjunto de los usuarios y consultar los estrenos de la cartelera actuales o próximos a
+extrenarse.
+Además, cada vez que busquen una película en el buscador, podrán acceder a las puntuaciones de dicha película por parte de
+sus amigos o conocidos más cercanos.
+En el caso de no estar registrado, le mostraremos la puntuación media de la película
+por parte de todos los internautas que la han puntuado.
+Otras de las grandes ventajas de nuestra web es que podrá escribir críticas sobre cualquier película y darle la puntuación
+conveniente. Además de crearse listas de películas (las favoritas, las que quiere ver, etc.).
+\section{Descripción de los implicados}
+ENTORNO DE USUARIO
+\begin{description}
+\item Los usuarios directos del producto a desarrollar es un grupo de desarrolladores. Su nivel cultural es medio y todos tienen experiencia previa en el uso de aplicaciones informáticas, y en la gestión de páginas web.
+\end{description}
+\vspace{3cm}
+RESUMEN DE LOS IMPLICADOS
+
+\begin{table}[H]
+    \begin{tabular}{||p{3cm} | p{3cm} | p{3cm} | p{3cm} ||}
+    \hline
+    \hline
+    Nombre & Descripción & Tipo & Responsabilidad\\
+    \hline
+        Cliente & Es un usuario que puede registarse & Usuario sistema &                 \begin{description}
+        \item[-] Resgistrarse en la página web 
+        \item[-] Participar en la comunidad
+        \end{description}\\
+    \hline
+    Usuario & Resperesenta a un usuario ya resgistrado & Usuario sistema & Votar y escribir criticas\\
+    \hline
+    Administrador & Representa gestor página web & Usuario producto & 
+        \begin{description}
+        \item[-] Crear y gestoniar la estancias de las películas
+        \item[-] Mantenimiento 
+        \item[-] Añadir imagenes, videos,etc 
+        \item[-] Actualizar en que cine están 
+        \item[-] Encargarse de las críticas de las editoriales  
+        \end{description}\\
+    \hline
+    \hline
+    \end{tabular}
+\end{table}
+\vspace{6cm}
+CLIENTE
+\begin{table}[H]
+    \begin{tabular}{||p{4cm} | p{7cm} ||}
+    \hline
+    \hline
+    Nombre & Es un usuario de internet no tiene un nombre \\
+    \hline
+    Descripción & Usuario de internet\\
+    \hline
+    Tipo & No utiliza el sistema de forma directa sino que desencadena que otros usuarios hagan uso del mismo.Además será un usuario casual. \\
+    \hline
+    Responsabilidades & 
+        \begin{description}
+        \item[-]Resgistrarse en la página web 
+        \item[-]Participar en lacomunidad. 
+        \end{description}\\
+    \hline
+    Criterios de exito & Que ese usuario que ha entrado en la pagina web se registre. \\
+    \hline
+    Implicación & Utilizará el sistema una vez para registrarse o de forma esporádica para comparar películas. \\
+    \hline
+    Comentarios cuestiones & El cliente se registra solo si ve facilidades a la hora de registrarse \\
+    \hline
+    \hline
+    \end{tabular}
+\end{table}
+USUARIO
+\begin{table}[H]
+    \begin{tabular}{||p{4cm} | p{7cm} ||}
+    \hline
+    \hline
+    Nombre & nick \\
+    \hline
+    Descripción & usuario registrado  de la página internet\\
+    \hline
+    Tipo & No utiliza el sistema de forma directa sino que desencadena que otros usuarios hagan uso del mismo. Además será un usuario casual. \\
+    \hline
+    Responsabilidades &
+        \begin{description}
+        \item[-]Votar las peliculas 
+        \item[-]Escribir criticas 
+        \end{description}\\
+    \hline
+    Criterios de exito & La participación del usuario en la comunidad por ejemplo: votando, escribiendo criticas, viendo los cines o comparando peliculas. Además de que este usuario sirva como reclamo a otros futuros usuarios. \\
+    \hline
+    Implicación & Utilizará el sistema para valorar las peliculas, criticarlas, es decir, dar su opinión a otros socios que quieran ver una película. \\
+    \hline
+    Comentarios cuestiones & Un socio entrará si y solo si las peliculas se actualizan todas las semanas. \\
+    \hline
+    \hline
+    \end{tabular}
+\end{table}
+\vspace{0.845cm}
+ADMINISTRADOR
+\begin{table}[H]
+    \begin{tabular}{||p{4cm} | p{7cm} ||}
+    \hline
+    \hline
+    Nombre & Administrator \\
+    \hline
+    Descripción & Administrador  de la página internet\\
+    \hline
+    Tipo & Experto \\
+    \hline
+        Responsabilidades & 
+        \begin{description}
+        \item[-]Crear y gestoniar la estancias de las películas 
+        \item[-]Mantenimiento 
+        \item[-]Añadir imagenes, videos,etc 
+        \item[-]Actualizar en que cine están 
+        \item[-]Encargarse de las críticas de las editoriales 
+        \end{description}\\
+    \hline
+    Criterios de exito & Cada vez haya mas visitas a la página web y haya más socios registrado. \\
+    \hline
+    Implicación & Es el responsable de  gestionar las películas y de añadir las nuevas películas. \\
+    \hline
+    Comentarios cuestiones & Está familiariazado con los sistemas informáticos.\\
+    \hline
+    \hline
+    \end{tabular}
+\end{table}
+
+PRINICIPALES NECESIDADES DE LOS IMPLICADOS
+
+\begin{table}[H]
+    \begin{tabular}{||p{2.5cm} | p{2cm} | p{3cm} | p{3cm} | p{3cm} ||}
+    \hline
+    \hline
+    Necesidad & Prioridad & Problema & Solución actual & Solución Propuesta\\
+    \hline
+    Valorar y criticar & Alta & ¿Como puedo saber si puedo valorar la pelicula? & Las valoraciones de peliculas están bloqueadas hasta que se estrenan & Mantenerlas ocultas hasta que se estrenen.\\
+    \hline
+    Comprar DVD & Media & ¿Cómo puedo comprar DVD? & Hay un apartado donde aparecen los DVD que quieres comprar & Que cuando valores una película y quieras comprarla puedas reservarla y antes de comprar puedas leer las críticas\\
+    \hline
+    Olvidar Constraseña & Alta & ¿Cómo recuperar la contraseña? & Se envía la contraseña a tu e-mail & Haya una opción de recuperación por modulación de voz\\
+    \hline
+    Recomendaciones & Media & ¿Cómo puedo ajustar mis recomendaciones? & Se ajustan en función de las peliculas que tus almas gemelas vean & acceder a varias cuentas de redes sociales del socio y recomendarle en función de sus gustos \\ 
+    \hline
+    \hline
+    \end{tabular}
+\end{table}
+
+\section{Requisitos}
+    \subsection{Funcionales}
+	\begin{itemize}
+	
+	\item \textbf{Gestion de Películas}
+		\begin{enumerate}[label=\bfseries RF- \arabic*:]
+		\item El sistema llevará un control de todas las películas estrenadas y por estrenar que haya en la Base de Datos (BD).
+		\item Se permitirá hacer críticas a las películas.
+			\begin{enumerate}[label=\bfseries 2.\arabic*:]
+				\item Necesitamos una lista de críticas para cada película.
+				\item Cada película tendrá asociada una nota media.
+				\item El histórico de la nota media se almacenará tambien en la base de datos para consultar la popularidad de la película.
+			\end{enumerate}
+		\item Los administradores podrán añadir películas una vez se sepa su fecha de estreno.
+		\item Los usuario pueden ver todos los datos de una película.
+		\end{enumerate}
+		
+		
+	\item \textbf{Gestión de Usuarios}
+		\begin{enumerate}[label=\bfseries RF- \arabic*:]
+		\setcounter{enumi}{4}
+		\item \textbf{Tipos de Usuarios:}
+			\begin{description}
+				\item[5.1 Usuario] Puede crear críticas sobre películas estrenadas y eliminarlas (pero solo las que ha escrito el mismo).
+				\item[5.2 Moderadores] Pueden eliminar críticas de otros usuarios y banear temporalmente o indefinidamente a usuarios.
+				\item[5.3 Administradores] Pueden añadir películas.
+			\end{description}
+		\item Un usuario tiene:
+			\begin{description}
+				\item[6.1 Perfil] Compuesto por nombre, correo, edad, nacionalidad.
+				\item[6.2 Puntuación] Se establece en base a las notas medias que otros usuarios dan a sus críticas en películas. (Puede ser negativa)
+				\item[6.3 Amigos] Cada usuario puede enviar peticiones de amistad al resto de usuarios, y si la aceptan pasan a ser amigos y poder sugeririse películas unos a otros.
+				\item[6.4 Almas Gemelas] Son otros usuarios con un perfil de gustos similar al tuyo que el sistema te asocia automaticamente con la finalidad de enviarte automáticamente sugerencias de películas que les han gustado a tus almas gemelas.
+				\\Las almas gemelas se pueden encontrar utilizando un algoritmo de clasificación tipo KNN.				
+			\end{description}
+		\end{enumerate}
+	
+	\item \textbf{Críticas}
+		\begin{enumerate}[label=\bfseries RF- \arabic*:]
+		\setcounter{enumi}{6}
+		\item Cada crítica esta escrita por un único autor.
+		\item Cada crítica tiene una nota media.
+		\item Todos los usuarios pueden votar cada crítica una única vez.
+		\item Un usuario puede cambiar su voto sobre una crítica.
+		\item Un usuario puede comentar una crítica.
+		\item Un comentario en una crítica puede ser comentado por otros usuarios.
+		\end{enumerate}
+	\end{itemize}	
+	
+	    
+    \subsection{No Funcionales}
+    \begin{itemize}
+    \item \textbf{Usabilidad:}
+        \begin{enumerate}[label=\bfseries RNF- \arabic*:]
+        \item El sistema está pensado para personas que no tienen experiencia puesto que la interfaz de la misma es bastante sencilla.
+        \item Se indicará al usuario en portada acerca del conjunto de películas que se encuentra en cartelera actualmente además de las recomendaciones correspondientes y películas que saldrán proximamente en la cartelera.
+        \item El sistema tal y como esta diseñado dará instrucciones acerca de lo que el usuario es capaz de hacer en cada momento.
+        \item Se proporcionará ayudas al usuario, el usuario puede avisar de errores en la información proporcionada por las películas, o bien sean errores que se han producido en la web, el empleado correspondiente se encargará del análisis de dichos avisos. 
+        \end{enumerate}
+        
+    \item \textbf{Fiabilidad:}
+        \begin{enumerate}[label=\bfseries RNF- \arabic*:]
+        \setcounter{enumi}{4}
+        \item El sistema deberá realizar copias de seguridad cada cierto tiempo, debido a los posibles errores o caidas del sistema.
+        \item El sistema proporcionará un aviso de la incidendia al usuario en caso de no poder volver a restaurar el sistema.
+        \item Se deberán de tener varios servidores interconectados atendiendo a los usuarios, en caso de error en alguno de los servidores la carga de usuarios se dividirá en el resto de servidores funcionales.
+        \item El sistema deberá asegurar el estado de los datos una vez recupere un buen estado de funcionalidad.
+        \item El sistema estará regido por una jerarquia de empleados que se encargaran de la seguridad de la misma, además de esto a los usuarios se les pedirá información relevante para facilitar su identificación y evitar cuentas de robots automaticos. 
+        \end{enumerate}
+        
+    \item \textbf{Rendimiento:}
+        \begin{enumerate}[label=\bfseries RNF- \arabic*:]
+        \setcounter{enumi}{9}
+        \item Se separarán las capacidades de un usuario de la compra de DVD/BlueRay, es decir, se usará una interfaz de compra de películas diferente al entorno usual del usuario.
+        \item La base de datos tendrá que estar preparada para alojar tantos usuarios como sea necesario, alrededor de 100000 usuarios registrados en un inicio más esto se deberá incrementar posterirormente.
+        \item Cuando el usuario compra una película no deberá encontrarse ningun estado de indeterminación donde este no sepa la consecuencia de su acción.
+        \end{enumerate}
+        
+    \item \textbf{Soporte:}
+        \begin{enumerate}[label=\bfseries RNF- \arabic*:]
+        \setcounter{enumi}{12}
+        \item El sistema se encontrará mantenido por un grupo de empleados organizados de manera jerárquica y repartidos por secciones, estos se encontrarán dirigidos por un director de proyecto o administrador del sistema.
+        \item Será posible implementar la web para que tenga soporte en dispositivos moviles y tablets del mercado.
+        \end{enumerate}
+        
+    \item \textbf{Restricciones de implementeción:}
+        \begin{enumerate}[label=\bfseries RNF- \arabic*:]
+        \setcounter{enumi}{14}
+        \item El sistema puesto al ser una web necesitará de los lenguajes siguientes:
+            \begin{description}
+            \item[-] HTML5
+            \item[-] CSS3
+            \item[-] PHP
+            \item[-] MySQL
+            \item[-] JavaScript
+            \end{description}
+        \item El sistema también podrá ser implementado por la siguiente combinación:
+            \begin{description}
+            \item[-] HTML5
+            \item[-] CSS3
+            \item[-] Ruby on Rails
+            \item[-] MySQL o SQLite3
+            \item[-] JavaScript
+            \end{description}
+        \end{enumerate}
+        
+    \item \textbf{Requisitos físicos:}
+        \begin{enumerate}[label=\bfseries RNF- \arabic*:]
+        \setcounter{enumi}{16}
+        \item El sistema deberá tratar los datos de usuario en tiempo real, además de adaptar las películas para cada uno de los usuarios, y proporcionarles un metodo cómodo de compra.
+        \item Los datos del sistema de base de datos usados estará actualizado en todo momento por posibles peticiones a la misma.
+        \end{enumerate}
+        
+    \item \textbf{Operación:}
+        \begin{enumerate}[label=\bfseries RNF- \arabic*:]
+        \setcounter{enumi}{18}
+        \item El sistema estará operado por un equipo de empleados mientres este ofrezca servicio.
+        \end{enumerate}
+        
+    \item \textbf{Legales:}
+        \begin{enumerate}[label=\bfseries RNF- \arabic*:]
+        \setcounter{enumi}{19}
+        \item El sistema estará protegido por derechos de autor y Copyright.
+        \item El sistema no proporcionará datos de los usuarios a ninguna otra entidad.
+        \item El sistema ofrece una compra segura y dentro de la legalidad vigente con periodos de reclamación correspondiente.
+        \end{enumerate}
+    \end{itemize}
+    \subsection{Información}
+    Requisitos de Información Se incluye la información relevante para el cliente que debe gestionar y almacenar el sistema. Son todos aquellos datos que vamos a almacenar en la Base de Datos.
+    \begin{enumerate}[label=\bfseries RI- \arabic*:]
+
+    \item Películas a valorar Descripción de cada una de las películas disponibles en la página web.
+        \begin{itemize}
+        \item Contenido: nombre de la película, duración, sinopsis, país, director, reparto, fecha de estreno, género, tráiler, imágenes, críticas de los usuarios, puntuación de los usuarios, críticas de medios relevantes, premios, productora, guión, música, fotografía y cines.
+
+        \item Requisitos asociados: RF-1,2,3,4,5.1,5.2,7,8,9,10,11,12, RNF-2,17,18.
+        \end{itemize}
+    \item Películas en venta (DVD) Descripción de cada una de las películas disponibles para su venta en DVD.
+        \begin{itemize}
+        \item Contenido: nombre de la película, duración, sinopsis, país, director, reparto, fecha de estreno, género, tráiler, imágenes, críticas de los usuarios, puntuación de los usuarios, críticas de medios relevantes, premios, productora, guión, música, fotografía, cines, enlace a la página web donde está disponible y precio. Igual que el de películas a valorar, pero se añadirá, para cada copia, el precio.
+
+        \item Requisitos asociados: RF-1,2,3,4,5,7,8,9,10,11,12, RNF-2,10,12,17,18,22.
+        \end{itemize}
+    \item Peticiones por parte de los usuarios Lista de películas que aún no están dentro de la plataforma. Son aquellas a evaluar por un empleado, el cual decidirá si pasa a la lista de películas a valorar o no.
+        \begin{itemize}
+        \item Contenido: nombre de la película y sinopsis.
+
+        \item Requisitos asociados: 5.3.
+        \end{itemize}
+    \item Cuentas de usuarios Información sobre las distintas cuentas de usuarios registradas en el sistema. El usuario registrado tiene la plenitud de las acciones posibles dentro de la web. El usuario sin registrar solo accede a una parte parcial de la información y su participación en la web está parcialmente restringida.
+        \begin{itemize}
+        \item Contenido: Nombre completo, e-mail, fecha de nacimiento, sexo, ciudad, país, nombre de usuario, contraseña y lista de amigos.
+
+        \item Requisitos asociados: RF-5.1,6,9,10,11, RNF-3,4,6,9,11,17,18,21.
+        \end{itemize}
+    \item Próximos estrenos cartelera Información sobre las próximas películas a estrenar en algún país. No podremos votarlas ni escribir comentarios hasta que se estrenen en algún país.
+        \begin{itemize}
+        \item Contenido: nombre película, fecha estreno, año, duración, reparto, país, director, guión, música, fotografía, productora, género y sinopsis.
+
+        \item Requisitos asociados: RF-1,2,3,4,5.3, RNF-2,18.
+        \end{itemize}
+    \item Noticias sobre cine Información de las últimas noticias publicadas sobre determinadas películas, actores o productoras.
+        \begin{itemize}
+        \item Contenido: nombre de la película, actores, productora, país, premios e información sobre lo ocurrido.
+
+        \item Requisitos asociados: RF-5, RNF-18.
+        \end{itemize}
+    \end{enumerate}
+\end{document}
